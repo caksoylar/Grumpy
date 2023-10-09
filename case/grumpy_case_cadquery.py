@@ -24,7 +24,7 @@ overallHeight = heightAbovePlate+heightBelowPlate+plateHeight
 outerRad = 5        # radius of outer edge fillets
 outerRadSmall = 1.5 # radius of other outline fillets
 
-wallWidth  = 7.5    # Wall Width (in effect only left and right)
+wallWidth  = 5.5   # Wall Width (in effect only left and right)
 lWallWidth = 3    # min Wallthickness for keys outside of case body
 
 rectOffset = 0.125*19.05-colStagger/2 # rectangular case body y offset
@@ -57,7 +57,7 @@ def getRowPos(rowOffset=0):
     ]
     if (rowOffset > 0):
         # points.append(( 4.5 * spacing, topSwitchY - 3.5 * colStagger ) )
-        points.append(( 4.5 * spacing, topSwitchY - 4 * colStagger ) )
+        points.append(( 4.5 * spacing, topSwitchY - .0 * colStagger ) )
 
     if (rowOffset < 2):
         points.append(( 0.5 * spacing, topSwitchY - 4 * colStagger ))
@@ -120,7 +120,7 @@ def _filletInnerEdges(self):
     # fillet inner edges
     obj = (
         self.edges("|Z")
-        .edges(cqs.BoxSelector( (2, caseHeight, 0), (caseWidth/2-20, -caseHeight, overallHeight) ))
+        .edges(cqs.BoxSelector( (2, caseHeight, 0), (caseWidth/2-2.5, -caseHeight, overallHeight) ))
         .fillet(outerRadSmall)
     )
     return obj
@@ -318,7 +318,7 @@ full = (
     .chamfer(0.75)
     .faces("|Y")
     .faces(cqs.NearestToPointSelector((0,40, 5.5)))
-    .edges(cqs.BoxSelector((-8,35,10),(8,45,-5)))
+    .edges(cqs.BoxSelector((-8,27.5+wallWidth,10),(8,32.5+wallWidth,-5)))
     .chamfer(0.75)
 )
 

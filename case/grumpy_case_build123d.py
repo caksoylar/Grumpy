@@ -14,7 +14,7 @@ hsSafety = 1      # extra space to hide HS Sockets
 # CASE PARAMETERS
 keySafety = 0.5      # extra space between keycap and case
 spaceAbovePCB = 0.25 # space between PCB and Plate.
-plateHeight = 5 - spaceAbovePCB # heigth of plate
+plateHeight = 4 - spaceAbovePCB # heigth of plate
 colStagger = 0.25 * spacing # stagger between cols
 
 

@@ -224,7 +224,7 @@ with BuildPart() as FullCase:
     usb_plane = Plane(usb_face).shift_origin((usb_face.center().X,usb_face.center().Y,heightBelowPlate))
     with BuildSketch(usb_plane):
         add(USBCutoutInner.sketch)
-    extrude(amount=-5, mode=Mode.SUBTRACT)
+    extrude(amount=-10, mode=Mode.SUBTRACT)
     
     with BuildSketch(usb_plane):
         add(USBCutoutOuterStraight.sketch, rotation=180)

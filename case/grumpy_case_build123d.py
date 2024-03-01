@@ -313,12 +313,12 @@ with BuildPart() as FullCase:
     with Locations(
         offsetInwards(
             CaseOutline.sketch.vertices().sort_by(Axis.X)[-2:],
-            Vertex(outerRad + lWallWidth, outerRad + lWallWidth, -1),
+            Vertex(4 + lWallWidth, 4 + lWallWidth),
         )
     ):
         Cylinder(
-            radius=outerRad,
-            height=heightBelowPlate - 1,
+            radius=4,
+            height=heightBelowPlate,
             align=(Align.CENTER, Align.CENTER, Align.MIN),
         )
         mirror(about=Plane.YZ)

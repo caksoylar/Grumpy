@@ -218,9 +218,9 @@ with BuildPart() as FullCase:
             amount=-centerInset,
             mode=Mode.SUBTRACT,
         )
-        show_object(Bottom)
-        show_object(Plate)
-        show_object(Top)
+        # show_object(Bottom)
+        # show_object(Plate)
+        # show_object(Top)
 
     mirror(FullCase.part, about=Plane.YZ)
 
@@ -294,4 +294,4 @@ with BuildPart() as FullCase:
     chamfer(inner_usb_edges, 0.75)
     chamfer(outer_usb_edges, 0.75)
 
-show_object(FullCase, name="full")
+show_object(FullCase, name="full")  # pylint: disable=undefined-variable

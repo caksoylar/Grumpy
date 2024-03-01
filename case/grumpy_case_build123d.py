@@ -1,7 +1,9 @@
 from build123d import (
+    Align,
     Axis,
     BuildPart,
     BuildSketch,
+    Cylinder,
     Face,
     Kind,
     Locations,
@@ -10,6 +12,7 @@ from build123d import (
     Rectangle,
     Select,
     SortBy,
+    Vertex,
     add,
     chamfer,
     extrude,
@@ -115,6 +118,18 @@ def getInnerEdges(obj):
         .filter_by(Axis.Z)
         .filter_by(lambda v: v.center().X > 2 and v.center().X < (caseWidth / 2 - 2.5))
     )
+
+
+def offsetInwards(points, offset):
+    return [
+        point
+        - (
+            offset.X * (1 if point.X >= 0 else -1),
+            offset.Y * (1 if point.Y >= 0 else -1),
+            offset.Z,
+        )
+        for point in points
+    ]
 
 
 ## ------------------------------------------------------------------------------
@@ -293,5 +308,20 @@ with BuildPart() as FullCase:
 
     chamfer(inner_usb_edges, 0.75)
     chamfer(outer_usb_edges, 0.75)
+
+    # with BuildPart() as Bumpons:
+    with Locations(
+        offsetInwards(
+            CaseOutline.sketch.vertices().sort_by(Axis.X)[-2:],
+            Vertex(outerRad + lWallWidth, outerRad + lWallWidth, -1),
+        )
+    ):
+        Cylinder(
+            radius=outerRad,
+            height=heightBelowPlate - 1,
+            align=(Align.CENTER, Align.CENTER, Align.MIN),
+        )
+        mirror(about=Plane.YZ)
+
 
 show_object(FullCase, name="full")  # pylint: disable=undefined-variable

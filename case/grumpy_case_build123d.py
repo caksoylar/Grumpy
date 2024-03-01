@@ -1,8 +1,22 @@
-from build123d import *
-
-import cadquery as cq
-import cadquery.selectors as cqs
-from cadquery import NearestToPointSelector, exporters as exp
+from build123d import (
+    Axis,
+    BuildPart,
+    BuildSketch,
+    Face,
+    Kind,
+    Locations,
+    Mode,
+    Plane,
+    Rectangle,
+    Select,
+    SortBy,
+    add,
+    chamfer,
+    extrude,
+    fillet,
+    mirror,
+    offset,
+)
 
 # CONSTANTS
 spacing = 19.05  # MX-Spacing
@@ -75,13 +89,12 @@ def getSwitchPositions(keys=True):
     """
     if keys:
         return getRowPos(0) + getRowPos(1) + getRowPos(2)
-    else:
-        return [
-            (
-                0.25 * spacing,
-                caseHeight / 2 - wallWidth - spacing / 2 - 2 * spacing - 4 * colStagger,
-            )
-        ]
+    return [
+        (
+            0.25 * spacing,
+            caseHeight / 2 - wallWidth - spacing / 2 - 2 * spacing - 4 * colStagger,
+        )
+    ]
 
 
 def getAlphaKeyPos():
@@ -96,13 +109,12 @@ def getAllKeyPos():
     return getAlphaKeyPos() + getThumbKeyPos()
 
 
-def getInnerEdges(object):
-    obj = (
-        object.edges()
+def getInnerEdges(obj):
+    return (
+        obj.edges()
         .filter_by(Axis.Z)
         .filter_by(lambda v: v.center().X > 2 and v.center().X < (caseWidth / 2 - 2.5))
     )
-    return obj
 
 
 ## ------------------------------------------------------------------------------

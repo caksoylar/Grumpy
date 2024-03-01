@@ -317,9 +317,15 @@ with BuildPart() as FullCase:
         )
     ):
         Cylinder(
-            radius=4,
+            radius=5,
             height=heightBelowPlate,
             align=(Align.CENTER, Align.CENTER, Align.MIN),
+        )
+        Cylinder(
+            radius=4,
+            height=1,
+            align=(Align.CENTER, Align.CENTER, Align.MIN),
+            mode=Mode.SUBTRACT,
         )
         mirror(about=Plane.YZ)
 

@@ -343,7 +343,8 @@ with BuildPart() as FullCase:
         )
         mirror(about=Plane.YZ)
 
-# show_object(Bottom)
-# show_object(Plate)
-# show_object(Top)
-show_object(FullCase, name="full")  # pylint: disable=undefined-variable
+if "show_object" in globals():
+    # show_object(Bottom)
+    # show_object(Plate)
+    # show_object(Top)
+    show_object(FullCase, name="full")  # pylint: disable=undefined-variable

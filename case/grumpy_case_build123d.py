@@ -34,6 +34,8 @@ spaceAbovePCB = 0.25  # space between PCB and Plate.
 plateHeight = 5 - spaceAbovePCB  # heigth of plate
 colStagger = 0.25 * spacing  # stagger between cols
 
+controllerOffset = 0.0
+
 
 heightAbovePlate = 8.5  # height of case rim measured from plate
 heightBelowPlate = (
@@ -182,6 +184,10 @@ with BuildSketch() as USBCutoutOuterStraight:
     fillet(USBCutoutOuterStraight.vertices().group_by(Axis.Y)[-1], 2.5)
 ## ------------------------------------------------------------------------------
 
+with BuildSketch() as ControllerCutoutSketch:
+    Rectangle(19, 22)
+    fillet(ControllerCutoutSketch.vertices(), 2.0)
+
 with BuildPart() as FullCase:
 
     # Build Case Bottom below Plate
@@ -233,9 +239,6 @@ with BuildPart() as FullCase:
             amount=-centerInset,
             mode=Mode.SUBTRACT,
         )
-        # show_object(Bottom)
-        # show_object(Plate)
-        # show_object(Top)
 
     mirror(FullCase.part, about=Plane.YZ)
 
@@ -285,7 +288,7 @@ with BuildPart() as FullCase:
         .sort_by(SortBy.LENGTH)[-1]
     )
     usb_plane = Plane(usb_face).shift_origin(
-        (usb_face.center().X, usb_face.center().Y, heightBelowPlate)
+        (usb_face.center().X, usb_face.center().Y, heightBelowPlate + controllerOffset)
     )
     with BuildSketch(usb_plane):
         add(USBCutoutInner.sketch)
@@ -309,6 +312,17 @@ with BuildPart() as FullCase:
     chamfer(inner_usb_edges, 0.75)
     chamfer(outer_usb_edges, 0.75)
 
+    with BuildPart() as ControllerCutout:
+        controller_plane = Plane(origin=(
+            usb_face.center().X,
+            usb_face.center().Y - 22 / 2 - lWallWidth,
+            (heightBelowPlate + controllerOffset)
+        ))
+        with BuildSketch(controller_plane):
+            add(ControllerCutoutSketch.sketch)
+        extrude(amount=-5)
+    add(ControllerCutout, mode=Mode.SUBTRACT)
+
     # with BuildPart() as Bumpons:
     with Locations(
         offsetInwards(
@@ -329,5 +343,7 @@ with BuildPart() as FullCase:
         )
         mirror(about=Plane.YZ)
 
-
+# show_object(Bottom)
+# show_object(Plate)
+# show_object(Top)
 show_object(FullCase, name="full")  # pylint: disable=undefined-variable

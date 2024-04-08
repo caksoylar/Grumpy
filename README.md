@@ -1,3 +1,32 @@
+## What is this fork?
+
+This is a fork of the original Grumpy where instead of the lower pinky key, upper pinky key is used.
+This is similar to the [Hummingbird keyboard](https://github.com/PJE66/hummingbird)'s key layout.
+(Also see the [awesome-hummingbirds](https://github.com/jcmkk3/awesome-hummingbirds) list!)
+
+Compared to the original repo, the changes are:
+- Modified [`case/grumpy_case_build123d.py`](case/grumpy_case_build123d.py):
+  - Moved pinky key stagger up
+  - Added bumpon locations to the bottom corners
+  - Added a USB cutout so controller can fit
+- Replaced [`prod/case/grumpy.stl`](prod/case/grumpy.stl) with the export of the above script
+  - Note: The file in the original repo doesn't seem to be a direct export, since it is hollowed out on the bottom (via some post-processing?)
+
+What is **not changed** and thus is incompatible with above:
+- PCB files
+- Firmware files
+
+I built one with the modified case and handwired it to a Xiao using per-key PCBs.
+
+### Pictures
+
+![grumpy](https://github.com/caksoylar/Grumpy/assets/7876996/462c3a0c-0b0a-4231-99af-fba80e3f8a7c)
+![grumpy2](https://github.com/caksoylar/Grumpy/assets/7876996/9f202d73-1733-4714-9ed7-8b38ccd2d00c)
+![IMG_5391](https://github.com/caksoylar/Grumpy/assets/7876996/a59af8d1-7c42-4f42-8bfa-96f20ef8aa9c)
+
+
+## Original README
+
 ### grumpy
 
 28 key (3-row) angled unibody keyboard with col stagger 
